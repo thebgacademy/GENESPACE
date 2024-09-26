@@ -9,7 +9,7 @@ tasks:
 
     /workspace/mambaforge/bin/mamba init bash
     source ${HOME}/.bashrc
-    mamba create -n gs -c orthofinder -y &&
+    mamba create -n gs -c bioconda orthofinder -y &&
     gp sync-done bundle
 
 - name: MAIN - TERMINAL TO USE
