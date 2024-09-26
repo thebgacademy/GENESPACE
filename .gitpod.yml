@@ -9,7 +9,7 @@ tasks:
 
     /workspace/mambaforge/bin/mamba init bash
     source ${HOME}/.bashrc
-    mamba create -n rapid -c bioconda perl-bioperl seqtk pyfastaq -y &&
+    mamba create -n gs -c orthofinder -y &&
     gp sync-done bundle
 
 - name: MAIN - TERMINAL TO USE
@@ -21,15 +21,11 @@ tasks:
     cd /workspace
     chmod a+x *.pl *.py
     /workspace/mambaforge/bin/mamba init bash
-    echo 'alias ptt="/workspace/mambaforge/bin/python3 /workspace/agp-tpf-utils/src/tola/assembly/scripts/pretext_to_tpf.py"' >> ${HOME}/.bashrc
     source ${HOME}/.bashrc
-    mamba activate rapid
-    /workspace/mambaforge/bin/pip3 install click ruff
-    /workspace/mambaforge/bin/python3 -m pip install agp-tpf-utils/
+    mamba activate gs
     export PATH=/workspace:$PATH
-    gp preview https://www.thebgacademy.org/BGA24/sessions/Genome-Curation
+    gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html
     clear
-    bash manual-curation/welcome.sh
 
 ports:
   - port: 5900
