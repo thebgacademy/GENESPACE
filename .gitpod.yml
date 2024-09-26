@@ -15,7 +15,7 @@ tasks:
 - name: Install R - Packages
   init: gp sync-await bundle1 # Wait for previous 'inits' to complete
   command: |
-    sudo apt install r-cran-devtools
+    sudo apt install r-cran-devtools -y
     Rscript -e "install.packages('rlang')"
     Rscript -e "BiocManager::install(c("Biostrings", "rtracklayer"))"
     Rscript -e "devtools::install_github('jtlovell/GENESPACE')"
