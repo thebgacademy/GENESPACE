@@ -1,3 +1,3 @@
-FROM gitpod/workspace-full-vnc
+FROM gitpod/workspace-full
 
 RUN brew install R
