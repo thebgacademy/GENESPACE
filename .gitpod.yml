@@ -1,4 +1,4 @@
-image: gitpod/workspace-full-vnc
+image: gitpod/workspace-full
 
 tasks:
 - name: SETUP - MAMBA ENVIRONMENT
@@ -15,7 +15,11 @@ tasks:
 - name: Install R - Packages
   init: gp sync-await bundle1 # Wait for previous 'inits' to complete
   command: |
-    R -e "install.packages('devtools', repos='http://cran.us.r-project.org')"
+    sudo apt install r-cran-devtools
+    Rscript -e "install.packages('rlang')"
+    Rscript -e "BiocManager::install(c("Biostrings", "rtracklayer"))"
+    Rscript -e "devtools::install_github('jtlovell/GENESPACE')"
+
     gp sync-done bundle2
 
 - name: MAIN - TERMINAL TO USE
@@ -48,3 +52,4 @@ ports:
     visibility: public
 
 workspaceLocation: "/workspace"
+
