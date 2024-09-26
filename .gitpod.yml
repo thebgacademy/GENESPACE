@@ -1,4 +1,4 @@
-image: image: gitpod/workspace-full-vnc
+image: gitpod/workspace-full-vnc
 
 tasks:
 - name: SETUP - MAMBA ENVIRONMENT
@@ -9,14 +9,20 @@ tasks:
 
     /workspace/mambaforge/bin/mamba init bash
     source ${HOME}/.bashrc
-    mamba create -n gs -c bioconda orthofinder -y &&
-    gp sync-done bundle
+    mamba create -n gs -c bioconda orthofinder r -y &&
+    gp sync-done bundle1
+
+- name: Install R - Packages
+  init: gp sync-await bundle1 # Wait for previous 'inits' to complete
+  command: |
+    R -e "install.packages('devtools', repos='http://cran.us.r-project.org')"
+    gp sync-done bundle2
 
 - name: MAIN - TERMINAL TO USE
   # Installing click and ruff in the mamba environment didn't work for some reason
   # It is much easier to install via that mamba env's pip3
   # and then install pretext-to-tpf
-  init: gp sync-await bundle # Wait for previous 'inits' to complete
+  init: gp sync-await bundle2 # Wait for previous 'inits' to complete
   command: |
     cd /workspace
     chmod a+x *.pl *.py
@@ -27,9 +33,7 @@ tasks:
     gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html
     clear
 
-- name: Install R - Packages
-  command: |
-    R -e "install.packages('devtools', repos='http://cran.us.r-project.org')"
+
 
 vscode:
   extensions:
