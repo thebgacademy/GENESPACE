@@ -1,4 +1,4 @@
-image: colinxfleming/r-devtools
+image: image: gitpod/workspace-full-vnc
 
 tasks:
 - name: SETUP - MAMBA ENVIRONMENT
@@ -26,6 +26,10 @@ tasks:
     export PATH=/workspace:$PATH
     gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html
     clear
+
+- name: Install R - Packages
+  command: |
+    R -e "install.packages('devtools', repos='http://cran.us.r-project.org')"
 
 vscode:
   extensions:
