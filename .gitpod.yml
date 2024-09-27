@@ -9,11 +9,12 @@ tasks:
 
     /workspace/mambaforge/bin/mamba init bash
     source ${HOME}/.bashrc
-    mamba create -n gs -c bioconda orthofinder r -y &&
-    gp sync-done bundle1
+    mamba install -c bioconda orthofinder -y &&
+    gp sync-done bundle
 
 - name: Install R - Packages
-  init: gp sync-await bundle1 # Wait for previous 'inits' to complete
+  # Not sure why chmod needed setting multiple times, missing one would cause the installed to die and result in a borked env
+  # There is a 'compiled' and easier to install r::devtools available in apt
   command: |
     sudo chmod 777 -R /usr/local/lib/R/site-library
     sudo apt install r-cran-devtools -y
@@ -25,13 +26,13 @@ tasks:
     sudo chmod 777 -R /usr/local/lib/R/site-library
     Rscript -e "devtools::install_github('jtlovell/GENESPACE')"
 
-    gp sync-done bundle2
+    gp sync-done bundle
 
 - name: MAIN - TERMINAL TO USE
   # Installing click and ruff in the mamba environment didn't work for some reason
   # It is much easier to install via that mamba env's pip3
   # and then install pretext-to-tpf
-  init: gp sync-await bundle2 # Wait for previous 'inits' to complete
+  init: gp sync-await bundle # Wait for previous 'inits' to complete
   command: |
     cd /workspace
     chmod a+x *.pl *.py
@@ -50,11 +51,11 @@ vscode:
     - streetsidesoftware.code-spell-checker # Spelling checker for source code
 
 ports:
-  - port: 5900
-    onOpen: ignore
   - port: 6080
     onOpen: open-browser
     visibility: public
 
 workspaceLocation: "/workspace"
+
+
 
