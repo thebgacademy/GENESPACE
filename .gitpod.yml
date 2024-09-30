@@ -10,11 +10,12 @@ tasks:
     /workspace/mambaforge/bin/mamba init bash
     source ${HOME}/.bashrc
     mamba install -c bioconda orthofinder -y &&
-    gp sync-done bundle
+    gp sync-done bundle1
 
 - name: Install R - Packages
   # Not sure why chmod needed setting multiple times, missing one would cause the installed to die and result in a borked env
   # There is a 'compiled' and easier to install r::devtools available in apt
+  init: gp sync-await bundle1 # Wait for previous 'inits' to complete
   command: |
     sudo chmod 777 -R /usr/local/lib/R/site-library
     sudo apt install r-cran-devtools -y
@@ -31,6 +32,8 @@ tasks:
 - name: SETUP - MCscanX
   command: |
     git clone https://github.com/wyp1125/MCScanX.git
+    cd MCscanX
+    make mcscanx
 
 - name: MAIN - TERMINAL TO USE
   # Installing click and ruff in the mamba environment didn't work for some reason
@@ -44,6 +47,7 @@ tasks:
     source ${HOME}/.bashrc
     mamba activate gs
     export PATH=/workspace:$PATH
+    export PATH=/workspace/MCScanX:$PATH
     gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html
     clear
 
@@ -60,6 +64,3 @@ ports:
     visibility: public
 
 workspaceLocation: "/workspace"
-
-
-
