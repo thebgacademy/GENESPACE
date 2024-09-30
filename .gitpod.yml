@@ -28,6 +28,10 @@ tasks:
 
     gp sync-done bundle
 
+- name: SETUP - MCscanX
+  command: |
+    git clone https://github.com/wyp1125/MCScanX.git
+
 - name: MAIN - TERMINAL TO USE
   # Installing click and ruff in the mamba environment didn't work for some reason
   # It is much easier to install via that mamba env's pip3
