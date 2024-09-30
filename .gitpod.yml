@@ -17,6 +17,7 @@ tasks:
   # There is a 'compiled' and easier to install r::devtools available in apt
   init: gp sync-await bundle1 # Wait for previous 'inits' to complete
   command: |
+    /workspace/mambaforge/bin/mamba init bash
     sudo chmod 777 -R /usr/local/lib/R/site-library
     sudo apt install r-cran-devtools -y
     Rscript -e "install.packages('rlang')"
@@ -32,7 +33,7 @@ tasks:
 - name: SETUP - MCscanX
   command: |
     git clone https://github.com/wyp1125/MCScanX.git
-    cd MCscanX
+    cd MCScanX
     make mcscanx
 
 - name: MAIN - TERMINAL TO USE
