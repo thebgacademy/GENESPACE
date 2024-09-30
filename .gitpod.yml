@@ -5,21 +5,16 @@ tasks:
   # Installing click and ruff in the mamba environment didn't work for some reason
   # It is much easier to install via that mamba env's pip3
   # and then install pretext-to-tpf
-  init: gp sync-await bundle # Wait for previous 'inits' to complete
   command: |
-    gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html
+    gp preview https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/genespaceGuide.html 
+    unzip Genespace.zip
+    mv testGenespace/ genespace_data
+    touch genespace_session.R
     clear
-
-
 
 vscode:
   extensions:
     - cweijan.vscode-office
     - streetsidesoftware.code-spell-checker # Spelling checker for source code
 
-ports:
-  - port: 6080
-    onOpen: open-browser
-    visibility: public
-
-workspaceLocation: "/workspace"
+workspaceLocation: "/workspace/GENESPACE"
